@@ -39,7 +39,21 @@ public class ChangingColor : MonoBehaviour
                 triangleRenderer.color = Color.red;
                 //triangle.GetComponent<SpriteRenderer>().color = Color.red;
                 break;
-                
+
+            case 2:
+                triangleRenderer.color = Color.blue;
+                //triangle.GetComponent<SpriteRenderer>().color = Color.red;
+                break;
+
+            case 3:
+                triangleRenderer.color = Color.yellow;
+                //triangle.GetComponent<SpriteRenderer>().color = Color.red;
+                break;
+
+            default:
+                triangleRenderer.color = Color.white;
+                break;
+
         }
 
 
