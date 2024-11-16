@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Jumping : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class Jumping : MonoBehaviour
     private void Update()
     {
         //PlayerJumpV1();
-        PlayerJumpV2();
+        //PlayerJumpV2();
     }
 
     private void PlayerJumpV1()
@@ -89,4 +90,41 @@ public class Jumping : MonoBehaviour
             isJumping = false;
         }
     }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+      
+        if (context.performed)
+        {
+            Debug.Log(context.phase);
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, .2f, groundIdentity);
+
+            if (isGrounded)
+            {
+                canDoubleJump = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isGrounded)
+                {
+                    playerRb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+                }
+
+                else
+                {
+                    if (canDoubleJump)
+                    {
+                        playerRb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+                        canDoubleJump = false;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+
+
 }
