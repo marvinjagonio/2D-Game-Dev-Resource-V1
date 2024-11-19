@@ -14,13 +14,15 @@ public class FlippingChildObject : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
+            transform.Translate(Vector2.left * 5 * Time.deltaTime);
             flipFollow.localPosition = new Vector2(-offset, flipFollow.localPosition.y);
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
+            transform.Translate(Vector2.right * 5 * Time.deltaTime);
             flipFollow.localPosition = new Vector2(offset, flipFollow.localPosition.y);
         }
     }
