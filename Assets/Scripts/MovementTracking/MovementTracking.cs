@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovementTracking : MonoBehaviour
 {
     private float previousPlayerPosition;
-
+   
     private void Start()
     {
         //Store the initial position of the object
@@ -36,6 +36,9 @@ public class MovementTracking : MonoBehaviour
 
         //Update the previous position for the next frame
         previousPlayerPosition = currentPlayerPosition;
+
+
+        
     }
 
     void PlayerControls()
