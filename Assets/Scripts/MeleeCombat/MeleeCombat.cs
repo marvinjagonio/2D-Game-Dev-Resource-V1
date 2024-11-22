@@ -10,6 +10,12 @@ public class MeleeCombat : MonoBehaviour
     SpriteRenderer playerFlip;
 
 
+    private bool isGrounded;
+    private bool isJumping;
+    public Transform groundCheck;
+    public LayerMask groundIdentity;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +38,21 @@ public class MeleeCombat : MonoBehaviour
 
     private void OnAttack()
     {
-        playerAnim.SetTrigger("PlayerAttack");
+        playerAnim.SetTrigger("isAttacking");
     }
 
     private void OnJump()
     {
-        playerRb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, .2f, groundIdentity);
+
+        if(isGrounded)
+        {
+            playerRb.AddForce(Vector2.up * 7, ForceMode2D.Impulse);
+            playerAnim.SetTrigger("isJumping");
+        }
+
+        
+        
     }    
 
 
@@ -45,19 +60,21 @@ public class MeleeCombat : MonoBehaviour
     {
         if (playerRb.velocity.x < 0)
         {
-            playerAnim.SetTrigger("PlayerRun");
+            playerAnim.SetBool("isRunning", true);
             playerFlip.flipX = true;
         }
 
         else if (playerRb.velocity.x > 0)
         {
-            playerAnim.SetTrigger("PlayerRun");
+            playerAnim.SetBool("isRunning", true);
             playerFlip.flipX = false;
         }
 
         else
         {
-            playerAnim.SetTrigger("PlayerIdle");
+            playerAnim.SetBool("isRunning", false);
         }
     }
+
+    
 }
