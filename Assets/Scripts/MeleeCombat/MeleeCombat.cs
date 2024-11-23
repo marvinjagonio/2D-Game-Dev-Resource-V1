@@ -14,6 +14,14 @@ public class MeleeCombat : MonoBehaviour
     private bool isJumping;
     public Transform groundCheck;
     public LayerMask groundIdentity;
+    
+    [SerializeField] Transform attackPosition;
+    public LayerMask enemyLayers;
+    public float attackRadius;
+
+
+    public Transform attackColliderFlip;
+    public float offsetAttackCollider;
 
 
     // Start is called before the first frame update
@@ -39,6 +47,13 @@ public class MeleeCombat : MonoBehaviour
     private void OnAttack()
     {
         playerAnim.SetTrigger("isAttacking");
+
+        Collider2D[] enemyGotHit = Physics2D.OverlapCircleAll(attackPosition.position, attackRadius, enemyLayers);
+
+        foreach(Collider2D hit in enemyGotHit)
+        {
+            Debug.Log("You hit the enemy");
+        }
     }
 
     private void OnJump()
@@ -62,12 +77,15 @@ public class MeleeCombat : MonoBehaviour
         {
             playerAnim.SetBool("isRunning", true);
             playerFlip.flipX = true;
+            attackColliderFlip.localPosition = new Vector2(-offsetAttackCollider, attackColliderFlip.localPosition.y);
         }
 
         else if (playerRb.velocity.x > 0)
         {
             playerAnim.SetBool("isRunning", true);
             playerFlip.flipX = false;
+            attackColliderFlip.localPosition = new Vector2(offsetAttackCollider, attackColliderFlip.localPosition.y);
+
         }
 
         else
@@ -76,5 +94,8 @@ public class MeleeCombat : MonoBehaviour
         }
     }
 
-    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPosition.position, attackRadius);
+    }
 }
