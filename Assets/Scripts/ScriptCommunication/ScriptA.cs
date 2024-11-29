@@ -48,6 +48,9 @@ public class ScriptA : MonoBehaviour
         int PlayerTotalCrystals= sObj.TotalCrystalCollected = 55;
         Debug.Log(PlayerScore + " " + PlayerTotalCrystals);
 
+        //Access script inside the child gameobject /* SAMPLE SCRIPT ONLY, DO NOT UNCOMMENT */
+        //animator = GetComponentInChildren<Animator>();
+
         
     }
 
