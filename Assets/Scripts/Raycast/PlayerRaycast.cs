@@ -45,6 +45,14 @@ public class PlayerRaycast : MonoBehaviour
         if (hit)
         {
             Debug.Log("Hit!");
+
+            //Check if the object is close to target
+            if(hit.distance < 1.5f)
+            {
+                Debug.Log("Close to target");
+            }
+
         }
+
     }
 }
