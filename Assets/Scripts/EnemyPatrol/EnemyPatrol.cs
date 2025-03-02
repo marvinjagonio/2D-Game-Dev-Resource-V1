@@ -26,12 +26,12 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
-        //EnemyMovementPatrolV1();
-        //EnemyMovementFollow();
+        EnemyMovementPatrolV1();
+        EnemyMovementFollow();
 
-        //EnemyRaycastDetection();
+        EnemyRaycastDetection();
 
-        EnemyMovementPatrolV2();
+        //EnemyMovementPatrolV2();
 
     }
 
