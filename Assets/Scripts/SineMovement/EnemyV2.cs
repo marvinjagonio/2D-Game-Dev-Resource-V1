@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemyV2 : MonoBehaviour
@@ -14,6 +15,12 @@ public class EnemyV2 : MonoBehaviour
 
     public Transform player;
 
+    private Vector2 EnemyDirection = Vector2.right;
+    public float RayDistance;
+    public LayerMask LayerMask;
+
+    private float previousEnemyPosition;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,10 +29,16 @@ public class EnemyV2 : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        PatrolMovementTracker();
+    }
+
     private void FixedUpdate()
     {
-        //PatrolMovement();
-        FollowMovement();
+        PatrolMovement();
+        RaycastDetector();
+        //FollowMovement();
     }
 
     private void PatrolMovement()
@@ -58,4 +71,47 @@ public class EnemyV2 : MonoBehaviour
         //apply velocity to move towards the player
         rb.velocity = direction * speed;
     }
+
+    private void RaycastDetector()
+    {
+        RaycastHit2D RayLaser = Physics2D.Raycast(transform.position, EnemyDirection, RayDistance, LayerMask);
+        Debug.DrawRay(transform.position, EnemyDirection * RayDistance, Color.red);
+
+        if (RayLaser)
+        {
+
+        }
+
+        if (!RayLaser)
+        {
+
+        }
+
+        
+    }
+
+    private void PatrolMovementTracker()
+    {
+        float currentEnemyPosition = transform.position.x;
+
+        if (currentEnemyPosition < previousEnemyPosition)
+        {
+            EnemyDirection = Vector2.left;
+        }
+
+        else if (currentEnemyPosition > previousEnemyPosition)
+        {
+            EnemyDirection = Vector2.right;
+
+        }
+
+        else
+        {
+            //Debug.Log("Orc is not moving");
+        }
+
+        //Update the previous position for the next frame
+        previousEnemyPosition = currentEnemyPosition;
+    }
+
 }
